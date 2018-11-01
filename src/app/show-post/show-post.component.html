@@ -1,0 +1,113 @@
+<div class='container py-4'>
+  <div class='row justify-content-center'>
+    <div class='col-md-10'>
+      <div class='card'>
+        <div class='card-header'>
+          <h3>All Post</h3>
+        </div>
+        <div class='card-body center'>
+          <div class="input-group md-6">
+            <input type="text" class="form-control" placeholder="Post" aria-describedby="button-addon2" #post>
+            <div class="input-group-append">
+              <button (click)="addPost(post.value); post.value='';" class="btn btn-outline-secondary" type="button" id="button-addon2">Post
+                it!</button>
+            </div>
+          </div>
+          <hr />
+          <div *ngFor="let post of posts; let i = index;">
+            <div class='card'>
+              <div class='card-header'>
+                <div class="row">
+                  <div class="col-md-6 left">
+                    <h4>{{ post.post_text }}</h4>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-warning" (click)="openEditPost(i)">Edit</button>
+                    &nbsp;&nbsp;
+                    <button type="button" class="btn btn-danger" (click)="deletePost(i , post.id);">Delete</button>
+                  </div>
+                </div>
+              </div>
+              <div class='card-body center'>
+                <h5>Comment</h5>
+                <hr />
+                <div *ngFor="let comment of post.comment; let j = index;">
+                  <div class="row">
+                    <div class="col-md-6 left">
+                      <h6>Comment {{j+1}}: {{ comment.comment_text }}</h6>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button type="button" class="btn btn-warning btn-sm" (click)="openEditComment(i,j)">Edit</button>
+                      &nbsp;&nbsp;
+                      <button (click)="deleteComment(i , j , comment.id);" type="button" class="btn btn-danger btn-sm">Delete</button>
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+                <div class="input-group md-6">
+                  <input type="text" class="form-control" placeholder="Comment" aria-describedby="button-addon2"
+                    #comment>
+                  <div class="input-group-append">
+                    <button (click)="addComment(comment.value , post.id , i); comment.value='';" class="btn btn-outline-secondary"
+                      type="button" id="button-addon2">Comment!</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop" [ngStyle]="{'display':display1}"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display1}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Post Number: {{ data.post_index + 1 }}</h5>
+        <button type="button" class="close" (click)="onClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <label for="editPost" class="col-sm-3 col-form-label">Post Title :</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="editPost" value="{{ data.post_text }}" [(ngModel)]="data.post_text">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onCloseAndSaveEdit()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop" [ngStyle]="{'display':display2}"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display2}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Comment Number: {{ data.comment_index + 1 }}</h5>
+        <button type="button" class="close" (click)="onClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <label for="editPost" class="col-sm-4 col-form-label">Comment Text :</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="editPost" value="{{ data.comment_text }}" [(ngModel)]="data.comment_text">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onCloseAndSaveComment()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
