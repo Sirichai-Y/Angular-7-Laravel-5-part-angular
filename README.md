@@ -9,3 +9,4 @@
 4. เปิด Web Browser และไปที่ `http://localhost:4200`
 
 ## Project Guide
+[⚡ Angular 7 + Laravel 5 for Web App 2 ⚡](https://medium.com/@sirichai_ykt/angular-7-laravel-5-for-web-app-2-9913b12f3404)
